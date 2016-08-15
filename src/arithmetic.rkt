@@ -35,5 +35,7 @@
      (nand-gate nand w2 cout))))
 
 (provide
+  inc
+  inc-4
   inc-16
   full-adder)

@@ -32,6 +32,22 @@
 (define (xnor-16 a-bus b-bus out-bus)
   (make-array 16 xnor-gate a-bus b-bus out-bus))
 
+(define (or8-gate in-bus out)
+  (let ([w1 (make-wire)]
+        [w2 (make-wire)]
+        [w3 (make-wire)]
+        [w4 (make-wire)]
+        [w5 (make-wire)]
+        [w6 (make-wire)])
+    (make-component
+      (or-gate (in-bus 0) (in-bus 1) w1)
+      (or-gate (in-bus 2) (in-bus 3) w2)
+      (or-gate (in-bus 4) (in-bus 5) w3)
+      (or-gate (in-bus 6) (in-bus 7) w4)
+      (or-gate w1 w2 w5)
+      (or-gate w3 w4 w6)
+      (or-gate w5 w6 out))))
+
 (provide
   not-16
   and-16
@@ -39,4 +55,5 @@
   or-16
   nor-16
   xor-16
-  xnor-16)
+  xnor-16
+  or8-gate)

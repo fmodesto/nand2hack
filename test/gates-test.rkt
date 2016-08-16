@@ -11,6 +11,12 @@
     '(((0) (1))
       ((1) (0)))))
 
+(test-case "*** BUFFER ***"
+  (check-table?
+    (simulate buffer-gate '(1) '(1) 5)
+    '(((0) (0))
+      ((1) (1)))))
+
 (test-case "*** AND ***"
   (check-table?
     (simulate and-gate '(1 1) '(1) 5)

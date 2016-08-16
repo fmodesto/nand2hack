@@ -48,7 +48,16 @@
       (or-gate w3 w4 w6)
       (or-gate w5 w6 out))))
 
+(define (nor16-gate in-bus out)
+  (let ([w1 (make-wire)]
+        [w2 (make-wire)])
+    (make-component
+      (or8-gate (in-bus 0 7) w1)
+      (or8-gate (in-bus 8 15) w2)
+      (nor-gate w1 w2 out))))
+
 (provide
+  make-array
   not-16
   and-16
   nand-16
@@ -56,4 +65,5 @@
   nor-16
   xor-16
   xnor-16
-  or8-gate)
+  or8-gate
+  nor16-gate)

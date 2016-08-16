@@ -19,6 +19,12 @@
   (make-component
    (nand-gate in in out)))
 
+(define (buffer-gate in out)
+  (let ([w (make-wire)])
+    (make-component
+     (not-gate in w)
+     (not-gate w out))))
+
 (define (and-gate a b out)
   (let ([w (make-wire)])
     (make-component
@@ -58,6 +64,7 @@
   make-component
   nand-gate
   not-gate
+  buffer-gate
   and-gate
   or-gate
   nor-gate

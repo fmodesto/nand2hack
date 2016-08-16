@@ -28,7 +28,11 @@
           (loop (+ iteration 1) (quotient value 2)))))
   (loop 0 value))
 
+(define (as-bus wire)
+  (lambda (from [to from]) (if (eq? from to) wire (as-bus wire))))
+
 (provide
   make-bus
   read-bus
-  write-bus!)
+  write-bus!
+  as-bus)

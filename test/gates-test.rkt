@@ -2,24 +2,23 @@
 
 (require rackunit
          "simtest.rkt"
-         "../src/simulator.rkt"
          "../src/gates.rkt")
 
 (test-case "*** NOT ***"
   (check-table?
-    (simulate not-gate '(1) '(1) 5)
+    (simulate not-gate '(1) '(1))
     '(((0) (1))
       ((1) (0)))))
 
 (test-case "*** BUFFER ***"
   (check-table?
-    (simulate buffer-gate '(1) '(1) 5)
+    (simulate buffer-gate '(1) '(1))
     '(((0) (0))
       ((1) (1)))))
 
 (test-case "*** AND ***"
   (check-table?
-    (simulate and-gate '(1 1) '(1) 5)
+    (simulate and-gate '(1 1) '(1))
     '(((0 0) (0))
       ((0 1) (0))
       ((1 0) (0))
@@ -27,7 +26,7 @@
 
 (test-case "*** NAND ***"
   (check-table?
-    (simulate nand-gate '(1 1) '(1) 5)
+    (simulate nand-gate '(1 1) '(1))
     '(((0 0) (1))
       ((0 1) (1))
       ((1 0) (1))
@@ -35,7 +34,7 @@
 
 (test-case "*** OR ***"
   (check-table?
-    (simulate or-gate '(1 1) '(1) 5)
+    (simulate or-gate '(1 1) '(1))
     '(((0 0) (0))
       ((0 1) (1))
       ((1 0) (1))
@@ -43,7 +42,7 @@
 
 (test-case "*** NOR ***"
   (check-table?
-    (simulate nor-gate '(1 1) '(1) 5)
+    (simulate nor-gate '(1 1) '(1))
     '(((0 0) (1))
       ((0 1) (0))
       ((1 0) (0))
@@ -51,7 +50,7 @@
 
 (test-case "*** XOR ***"
   (check-table?
-    (simulate xor-gate '(1 1) '(1) 5)
+    (simulate xor-gate '(1 1) '(1))
     '(((0 0) (0))
       ((0 1) (1))
       ((1 0) (1))
@@ -59,7 +58,7 @@
 
 (test-case "*** XNOR ***"
   (check-table?
-    (simulate xnor-gate '(1 1) '(1) 5)
+    (simulate xnor-gate '(1 1) '(1))
     '(((0 0) (1))
       ((0 1) (0))
       ((1 0) (0))

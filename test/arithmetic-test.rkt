@@ -2,12 +2,11 @@
 
 (require rackunit
          "simtest.rkt"
-         "../src/simulator.rkt"
          "../src/arithmetic.rkt")
 
 (test-case "*** INC ***"
   (check-table?
-    (simulate inc '(1 1) '(1 1) 10)
+    (simulate inc '(1 1) '(1 1))
     '(((0 0) (0 0))
       ((0 1) (1 0))
       ((1 0) (1 0))
@@ -15,7 +14,7 @@
 
 (test-case "*** INC4 ***"
   (check-table?
-    (simulate inc4 '(4 1) '(4 1) 10)
+    (simulate inc4 '(4 1) '(4 1))
     '(((0 0) (0 0))
       ((0 1) (1 0))
       ((1 1) (2 0))
@@ -50,7 +49,7 @@
 
 (test-case "*** FULL-ADDER ***"
   (check-table?
-    (simulate full-adder '(1 1 1) '(1 1 1) 6)
+    (simulate full-adder '(1 1 1) '(1 1 1))
     '(((0 0 0) (0 0 1))
       ((0 0 1) (1 0 1))
       ((0 1 0) (1 0 1))
@@ -62,7 +61,7 @@
 
 (test-case "*** ADD4 ***"
   (check-table?
-    (simulate add4 '(4 4 1) '(4 1 4) 11)
+    (simulate add4 '(4 4 1) '(4 1 4))
     '(((0 0 0) (0 0 #b1111))
       ((0 0 1) (1 0 #b1111))
       ((1 1 0) (2 0 #b1110))
@@ -74,7 +73,7 @@
 
 (test-case "*** ADD16 ***"
   (check-table?
-    (simulate add16 '(16 16) '(16 16) 35)
+    (simulate add16 '(16 16) '(16 16))
     '(((#b0000000000000000 #b0000000000000000) (#b0000000000000000 #b1111111111111111))
       ((#b0000000000000000 #b1111111111111111) (#b1111111111111111 #b1111111111111111))
       ((#b1111111111111111 #b1111111111111111) (#b1111111111111110 #b0000000000000000))

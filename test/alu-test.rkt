@@ -2,12 +2,11 @@
 
 (require rackunit
          "simtest.rkt"
-         "../src/simulator.rkt"
          "../src/alu.rkt")
 
 (test-case "*** ALU-PART ***"
   (check-table?
-    (simulate alu-part '(1 1 1) '(1) 3)
+    (simulate alu-part '(1 1 1) '(1))
     '(((0 0 0) (1))
       ((0 0 1) (0))
       ((0 1 0) (1))

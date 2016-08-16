@@ -3,12 +3,12 @@
 (require "wire.rkt"
          "gates.rkt")
 
-(define (flip-flop s r q i)
+(define (latch s r q i)
   (make-component
     (nand-gate s i q)
     (nand-gate q r i)))
 
-(define (edge-flip-flop data clk q)
+(define (d-flip-flop data clk q)
   (let ([!data (make-wire)]
         [!clk (make-wire)]
         [!q (make-wire)]
@@ -23,11 +23,11 @@
      (not-gate clk !clk)
      (nand-gate data clk w1)
      (nand-gate !data clk w2)
-     (flip-flop w1 w2 w3 w4)
+     (latch w1 w2 w3 w4)
      (nand-gate w3 !clk w5)
      (nand-gate w4 !clk w6)
-     (flip-flop w5 w6 q !q))))
+     (latch w5 w6 q !q))))
 
 (provide
-  flip-flop
-  edge-flip-flop)
+  latch
+  d-flip-flop)

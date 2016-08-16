@@ -4,7 +4,7 @@
          "bus.rkt"
          "utils.rkt")
 
-(define (simulation components)
+(define (simulator components)
   (define (read-step)
     (for-each (lambda (c) ((car c))) components))
   (define (write-step)
@@ -20,31 +20,40 @@
     (loop 1))
   run)
 
-(define (simulate component in out [steps 50])
-  (define (make-connections input)
-    (map (lambda (x) (if (= x 1) (make-wire) (make-bus x))) input))
+(define (make-connections format)
+  (map (lambda (x) (if (= x 1) (make-wire) (make-bus x))) format))
+
+(define (set-values! wires format values)
+  (define (set-value! wire size value)
+    (if (= size 1)
+        (set-signal! wire value)
+        (write-bus! wire size value)))
+  (for-each set-value! wires format values))
+
+(define (get-values wires format)
+  (define (get-value wire size)
+    (if (= size 1)
+        (get-signal wire)
+        (read-bus wire size)))
+  (map get-value wires format))
+
+(define (simulate component in out)
   (let* ([input (make-connections in)]
          [output (make-connections out)]
          [comp (apply component (append input output))]
-         [simulation (simulation comp)])
-    (define (set-values! values)
-      (define (set-value! wire size value)
-        (if (= size 1)
-            (set-signal! wire value)
-            (write-bus! wire size value)))
-      (for-each set-value! input in values))
-    (define (get-values)
-      (define (get-value wire size)
-        (if (= size 1)
-            (get-signal wire)
-            (read-bus wire size)))
-      (map get-value output out))
-    (define (test . values)
-      (set-values! values)
-      (simulation steps)
-      (get-values))
-    test))
+         [simulation (simulator comp)])
+    (define (steps num)
+      (simulation num)
+      (get-values output out))
+    (define (dispatch . values)
+      (set-values! input in values)
+      (lambda (fn . args)
+        (cond [(eq? fn 'steps) (apply steps args)]
+              [(eq? fn 'run) (apply steps args)]
+              [else (error "Unknown option" fn)])))
+    dispatch))
 
+#|
 (define (truth-table simulated-component size)
   (define (loop iteration value list)
     (if (>= iteration size)
@@ -56,8 +65,8 @@
   (define (test-values)
     (map test (range (expt 2 size))))
   (test-values))
+|#
 
 (provide
-  simulation
-  simulate
-  truth-table)
+  simulator
+  simulate)
